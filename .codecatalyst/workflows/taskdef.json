@@ -1,13 +1,13 @@
 {
-    "executionRoleArn": "arn:aws:iam::account_ID:role/codecatalyst-ecs-task-execution-role",
+    "executionRoleArn": "arn:aws:iam::${Secrets.AWS_ACCOUNT_ID}:role/codecatalyst-ecs-task-execution-role",
     "containerDefinitions": [
         {
             "name": "codecatalyst-ecs-container",
-            "image": "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/devopscorner/bookstore-codecatalyst:alpine",
+            "image": "${Secrets.AWS_ACCOUNT_ID}.dkr.ecr.${Secrets.AWS_REGION}.amazonaws.com/devopscorner/bookstore-codecatalyst:alpine",
             "essential": true,
             "portMappings": [
                 {
-                    "hostPort": 80,
+                    "hostPort": 8080,
                     "protocol": "tcp",
                     "containerPort": 8080
                 }
