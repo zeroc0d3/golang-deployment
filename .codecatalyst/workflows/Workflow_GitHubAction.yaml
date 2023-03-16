@@ -114,4 +114,4 @@ Actions:
       region: us-west-2
       cluster: codecatalyst-ecs-cluster
       service: bookstore-ecs-service
-      task-definition: .codecatalyst/taskdef.json
+      task-definition: .codecatalyst/workflows/taskdef.json
