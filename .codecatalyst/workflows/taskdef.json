@@ -1,5 +1,5 @@
 {
-    "executionRoleArn": "arn:aws:iam::${Secrets.AWS_ACCOUNT_ID}:role/CodeCatalystPreviewDevelopmentAdministrator-5nxysr",
+    "executionRoleArn": "arn:aws:iam::${Secrets.AWS_ACCOUNT_ID}:role/codecatalyst-ecs-task-execution-role",
     "containerDefinitions": [
         {
             "name": "codecatalyst-ecs-container",

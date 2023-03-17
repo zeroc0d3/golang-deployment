@@ -99,12 +99,12 @@ Actions:
           Name: "085546766396"
       Name: staging-dev
   DeployToECS:
-    DependsOn: 
+    DependsOn:
       - GitHubActions_Deployment
     Identifier: aws/ecs-deploy@v1
     Environment:
       Connections:
-        - Role: CodeCatalystPreviewDevelopmentAdministrator-5nxysr
+        - Role: codecatalyst-ecs-task-execution-role
           Name: "085546766396"
       Name: staging-dev
     Inputs:

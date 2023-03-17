@@ -6,10 +6,12 @@ Triggers:
   - Type: PUSH
     Branches:
       - master
-      - "release-.*"
+      - "release/*"
   - Type: PULLREQUEST
     Branches:
-      - master
+      - "features/*"
+      - "bugfix/*"
+      - "hotfix/*"
     Events:
       - OPEN
       - REVISION
@@ -68,7 +70,7 @@ Actions:
         Files:
           - "_infra/**"
           - ".aws/**"
-          - ".codecatalyst/**"
+          - ".codecatalyst/workflows/**"
           - "docs/**"
           - "docker-compose.yml"
           - "Dockerfile"
@@ -96,22 +98,22 @@ Actions:
         - Role: CodeCatalystPreviewDevelopmentAdministrator-5nxysr
           Name: "085546766396"
       Name: staging-dev
-
   DeployToECS:
     DependsOn:
       - GitHubActions_Deployment
     Identifier: aws/ecs-deploy@v1
     Environment:
-      Name: codecatalyst-ecs-environment
       Connections:
-        - Name: bookstore-account-connection
-          Role: bookstore-ecs-deploy-role
+        - Role: codecatalyst-ecs-task-execution-role
+          Name: "085546766396"
+      Name: staging-dev
     Inputs:
-      Sources: []
+      Sources:
+        - WorkflowSource
       Artifacts:
         - MyArtifact
     Configuration:
       region: us-west-2
-      cluster: bookstore-ecs-cluster
+      cluster: codecatalyst-ecs-cluster
       service: bookstore-ecs-service
-      task-definition: taskdef.json
+      task-definition: .codecatalyst/workflows/taskdef.json
