@@ -116,4 +116,19 @@ Actions:
       region: us-west-2
       cluster: codecatalyst-ecs-cluster
       service: bookstore-ecs-service
-      task-definition: .codecatalyst/workflows/taskdef.json
+      task-definition: |
+        executionRoleArn: arn:aws:iam::${Secrets.AWS_ACCOUNT_ID}:role/codecatalyst-ecs-task-execution-role
+        containerDefinitions:
+        - name: codecatalyst-ecs-container
+          image: "${Secrets.AWS_ACCOUNT_ID}.dkr.ecr.${Secrets.AWS_REGION}.amazonaws.com/devopscorner/bookstore-codecatalyst:alpine"
+          essential: true
+          portMappings:
+          - hostPort: 8080
+            protocol: tcp
+            containerPort: 8080
+        requiresCompatibilities:
+        - FARGATE
+        networkMode: awsvpc
+        cpu: '256'
+        memory: '512'
+        family: bookstore-ecs-task-def
