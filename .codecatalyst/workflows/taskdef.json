@@ -5,48 +5,22 @@
             "name": "codecatalyst-ecs-container",
             "image": "${Secrets.AWS_ACCOUNT_ID}.dkr.ecr.${Secrets.AWS_REGION}.amazonaws.com/devopscorner/bookstore-codecatalyst:alpine",
             "cpu": 0,
+            "essential": true,
             "portMappings": [
                 {
-                    "containerPort": 8080,
                     "hostPort": 8080,
-                    "protocol": "tcp"
+                    "protocol": "tcp",
+                    "containerPort": 8080
                 }
-            ],
-            "essential": true,
-            "environment": [],
-            "mountPoints": [],
-            "volumesFrom": []
+            ]
         }
     ],
-    "family": "bookstore-ecs-task-def",
-    "executionRoleArn": "arn:aws:iam::${Secrets.AWS_ACCOUNT_ID}:role/codecatalyst-ecs-task-execution-role",
-    "networkMode": "awsvpc",
-    "revision": 1,
-    "volumes": [],
-    "status": "ACTIVE",
-    "requiresAttributes": [
-        {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-        },
-        {
-            "name": "ecs.capability.task-eni"
-        }
-    ],
-    "placementConstraints": [],
-    "compatibilities": [
-        "EC2",
-        "FARGATE"
-    ],
+    "executionRoleArn": "arn:aws:iam::085546766396:role/codecatalyst-ecs-task-execution-role",
     "requiresCompatibilities": [
         "FARGATE"
     ],
+    "networkMode": "awsvpc",
     "cpu": "256",
     "memory": "512",
-    "tags": []
+    "family": "bookstore-ecs-task-def"
 }
