@@ -104,7 +104,7 @@ Actions:
     Identifier: aws/ecs-deploy@v1
     Environment:
       Connections:
-        - Role: codecatalyst-ecs-task-execution-role
+        - Role: CodeCatalystPreviewDevelopmentAdministrator-5nxysr
           Name: "085546766396"
       Name: staging-dev
     Inputs:
