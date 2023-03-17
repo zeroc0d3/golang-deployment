@@ -1,10 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:${Secrets.AWS_REGION}:${Secrets.AWS_ACCOUNT_ID}:task-definition/bookstore-ecs-task-def:1",
+    "executionRoleArn": "arn:aws:iam::085546766396:role/codecatalyst-ecs-task-execution-role",
     "containerDefinitions": [
         {
             "name": "codecatalyst-ecs-container",
-            "image": "${Secrets.AWS_ACCOUNT_ID}.dkr.ecr.${Secrets.AWS_REGION}.amazonaws.com/devopscorner/bookstore-codecatalyst:alpine",
-            "cpu": 0,
+            "image": "085546766396.dkr.ecr.us-west-2.amazonaws.com/devopscorner/bookstore-codecatalyst:alpine",
             "essential": true,
             "portMappings": [
                 {
@@ -15,12 +14,11 @@
             ]
         }
     ],
-    "executionRoleArn": "arn:aws:iam::${Secrets.AWS_ACCOUNT_ID}:role/codecatalyst-ecs-task-execution-role",
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "networkMode": "awsvpc",
     "cpu": "256",
+    "family": "bookstore-ecs-task-def",
     "memory": "512",
-    "family": "bookstore-ecs-task-def"
+    "networkMode": "awsvpc"
 }
