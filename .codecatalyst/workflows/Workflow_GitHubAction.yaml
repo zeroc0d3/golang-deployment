@@ -6,10 +6,12 @@ Triggers:
   - Type: PUSH
     Branches:
       - master
-      - "release-.*"
+      - "release/*"
   - Type: PULLREQUEST
     Branches:
-      - master
+      - "features/*"
+      - "bugfix/*"
+      - "hotfix/*"
     Events:
       - OPEN
       - REVISION
@@ -68,7 +70,7 @@ Actions:
         Files:
           - "_infra/**"
           - ".aws/**"
-          - ".codecatalyst/**"
+          - ".codecatalyst/workflows/**"
           - "docs/**"
           - "docker-compose.yml"
           - "Dockerfile"
