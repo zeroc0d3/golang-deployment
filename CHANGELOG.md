@@ -2,7 +2,7 @@
 
 Kubernetes Deployment for Simple Golang API
 
-![goreport](https://goreportcard.com/badge/github.com/devopscorner/golang-deployment/src) ![all contributors](https://img.shields.io/github/contributors/devopscorner/golang-deployment) ![tags](https://img.shields.io/github/v/tag/devopscorner/golang-deployment?sort=semver) [![docker pulls](https://img.shields.io/docker/pulls/devopscorner/bookstore.svg)](https://hub.docker.com/r/devopscorner/bookstore/) ![download all](https://img.shields.io/github/downloads/devopscorner/golang-deployment/total.svg) ![download latest](https://img.shields.io/github/downloads/devopscorner/golang-deployment/3.1/total) ![view](https://views.whatilearened.today/views/github/devopscorner/golang-deployment.svg) ![clone](https://img.shields.io/badge/dynamic/json?color=success&label=clone&query=count&url=https://github.com/devopscorner/golang-deployment/blob/master/clone.json?raw=True&logo=github) ![issues](https://img.shields.io/github/issues/devopscorner/golang-deployment) ![pull requests](https://img.shields.io/github/issues-pr/devopscorner/golang-deployment) ![forks](https://img.shields.io/github/forks/devopscorner/golang-deployment) ![stars](https://img.shields.io/github/stars/devopscorner/golang-deployment) [![license](https://img.shields.io/github/license/devopscorner/golang-deployment)](https://img.shields.io/github/license/devopscorner/golang-deployment)
+![goreport](https://goreportcard.com/badge/github.com/devopscorner/golang-deployment/src) ![all contributors](https://img.shields.io/github/contributors/devopscorner/golang-deployment) ![tags](https://img.shields.io/github/v/tag/devopscorner/golang-deployment?sort=semver) [![docker pulls](https://img.shields.io/docker/pulls/devopscorner/bookstore.svg)](https://hub.docker.com/r/devopscorner/bookstore/) ![download all](https://img.shields.io/github/downloads/devopscorner/golang-deployment/total.svg) ![download latest](https://img.shields.io/github/downloads/devopscorner/golang-deployment/4.1/total) ![view](https://views.whatilearened.today/views/github/devopscorner/golang-deployment.svg) ![clone](https://img.shields.io/badge/dynamic/json?color=success&label=clone&query=count&url=https://github.com/devopscorner/golang-deployment/blob/master/clone.json?raw=True&logo=github) ![issues](https://img.shields.io/github/issues/devopscorner/golang-deployment) ![pull requests](https://img.shields.io/github/issues-pr/devopscorner/golang-deployment) ![forks](https://img.shields.io/github/forks/devopscorner/golang-deployment) ![stars](https://img.shields.io/github/stars/devopscorner/golang-deployment) [![license](https://img.shields.io/github/license/devopscorner/golang-deployment)](https://img.shields.io/github/license/devopscorner/golang-deployment)
 
 ## Available Tags
 
@@ -32,10 +32,72 @@ Kubernetes Deployment for Simple Golang API
 
 ---
 
+### version 4.1
+
+- All features in version 4.0
+- Refactoring routes for endpoint login into LoginController (validate JSON Token & rendering result token)
+- Refactoring folder `Repository Pattern` with View for rendering JSON parse response and Const for error response
+  ```
+      .
+      ├── .env
+      ├── .env.example
+      ├── config
+      │   ├── config.go
+      │   ├── config_test.go
+      │   └── const.go
+      ├── controller
+      │   ├── book_controller.go
+      │   ├── book_controller_test.go
+      │   ├── login_controller.go
+      │   └── login_controller_test.go
+      ├── driver
+      │   ├── db.go
+      │   ├── dynamo.go
+      │   ├── mysql.go
+      │   ├── psql.go
+      │   └── sqlite.go
+      ├── go-bookstore.db
+      ├── go.mod
+      ├── go.sum
+      ├── main.go
+      ├── main_test.go
+      ├── middleware
+      │   ├── auth_middleware.go
+      │   └── auth_middleware_test.go
+      ├── migrate_book.go.example
+      ├── migrate_book_dynamo.go.example
+      ├── model
+      │   └── book.go
+      ├── repository
+      │   └── book_repository.go
+      ├── routes
+      │   └── book_routes.go
+      └── view
+          ├── book_view.go
+          ├── error_view.go
+          └── login_view.go
+
+      9 directories, 29 files
+  ```
+- Added Const definition `config/const.go`
+  ```
+  ERR_INVALID_BOOK_ID         = "Invalid book ID"
+  ERR_INVALID_REQUEST_PAYLOAD = "Invalid request payload"
+  ERR_INVALID_CREDENTIALS     = "Invalid credentials"
+  ERR_BOOK_NOT_FOUND          = "Book not found!"
+  ERR_UPDATE_BOOK             = "Failed to update book"
+  ERR_DELETE_BOOK             = "Failed to delete book"
+  ```
+- Added Amazon CodeCatalyst workflow CI/CD in `.codecatalyst` folder
+- Refactoring middleware routes
+- Added unit test Postman collection
+
+---
+
 ### version 4.0
 
 - All features in version 3.5
-- Refactoring folder MVC with multiple driver ORM
+- Refactoring folder `Repository Pattern` with multiple driver ORM
   ```
       .
       ├── config

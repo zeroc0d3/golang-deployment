@@ -7,7 +7,7 @@ Kubernetes Deployment for Simple Golang API
 ![tags](https://img.shields.io/github/v/tag/devopscorner/golang-deployment?sort=semver)
 [![docker pulls](https://img.shields.io/docker/pulls/devopscorner/bookstore.svg)](https://hub.docker.com/r/devopscorner/bookstore/)
 ![download all](https://img.shields.io/github/downloads/devopscorner/golang-deployment/total.svg)
-![download latest](https://img.shields.io/github/downloads/devopscorner/golang-deployment/4.0/total)
+![download latest](https://img.shields.io/github/downloads/devopscorner/golang-deployment/4.1/total)
 ![view](https://views.whatilearened.today/views/github/devopscorner/golang-deployment.svg)
 ![clone](https://img.shields.io/badge/dynamic/json?color=success&label=clone&query=count&url=https://github.com/devopscorner/golang-deployment/blob/master/clone.json?raw=True&logo=github)
 ![issues](https://img.shields.io/github/issues/devopscorner/golang-deployment)
@@ -54,6 +54,7 @@ Kubernetes Deployment for Simple Golang API
   - **ArgoCD**, detail [here](docs/deployment-argocd.md) link
   - **AWS CloudFormation**, detail [here](docs/deployment-aws-cloudformation.md) link
   - **AWS Developer Tools** (AWS CodeCommit, AWS CodeBuild & AWS CodePipeline), detail [here](docs/deployment-aws-developer-tools.md) link
+  - **Amazon CodeCatalyst Pipeline**, detail [here](docs/deployment-amazon-codecatalyst.md) link
   - **Azure DevOps Pipeline**, detail [here](docs/deployment-azure-devops.md) link
   - **Bitbucket Pipeline**, detail [here](docs/deployment-bitbucket.md) link
   - **CircleCI Pipeline**, detail [here](docs/deployment-circleci.md) link
@@ -74,38 +75,45 @@ Kubernetes Deployment for Simple Golang API
 - Folder Structure
   ```
       .
+      ├── .env
+      ├── .env.example
       ├── config
-      │   ├── config.go
-      │   └── config_test.go
+      │   ├── config.go
+      │   ├── config_test.go
+      │   └── const.go
       ├── controller
-      │   ├── book_controller.go
-      │   ├── book_controller_test.go
-      │   ├── login_controller.go
-      │   └── login_controller_test.go
+      │   ├── book_controller.go
+      │   ├── book_controller_test.go
+      │   ├── login_controller.go
+      │   └── login_controller_test.go
       ├── driver
-      │   ├── db.go
-      │   ├── dynamo.go
-      │   ├── mysql.go
-      │   ├── psql.go
-      │   └── sqlite.go
+      │   ├── db.go
+      │   ├── dynamo.go
+      │   ├── mysql.go
+      │   ├── psql.go
+      │   └── sqlite.go
       ├── go-bookstore.db
       ├── go.mod
       ├── go.sum
       ├── main.go
       ├── main_test.go
       ├── middleware
-      │   ├── auth_middleware.go
-      │   └── auth_middleware_test.go
+      │   ├── auth_middleware.go
+      │   └── auth_middleware_test.go
       ├── migrate_book.go.example
       ├── migrate_book_dynamo.go.example
       ├── model
-      │   └── book.go
+      │   └── book.go
       ├── repository
-      │   └── book_repository.go
-      └── routes
-          └── book_routes.go
+      │   └── book_repository.go
+      ├── routes
+      │   └── book_routes.go
+      └── view
+          ├── book_view.go
+          ├── error_view.go
+          └── login_view.go
 
-      8 directories, 23 files
+      9 directories, 29 files
   ```
 
 - Environment Variables (Default)

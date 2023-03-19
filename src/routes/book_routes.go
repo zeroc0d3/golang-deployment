@@ -7,9 +7,8 @@ import (
 	"github.com/devopscorner/golang-deployment/src/config"
 	"github.com/devopscorner/golang-deployment/src/controller"
 	"github.com/devopscorner/golang-deployment/src/driver"
+	"github.com/devopscorner/golang-deployment/src/middleware"
 	"github.com/gin-gonic/gin"
-	validator "github.com/go-playground/validator/v10"
-	"github.com/spf13/viper"
 )
 
 func SetupRoutes(router *gin.Engine) {
@@ -29,35 +28,9 @@ func SetupRoutes(router *gin.Engine) {
 	})
 
 	// Login route to create basic auth JWT token
-	router.POST("/login", func(c *gin.Context) {
-		var loginRequest controller.LoginRequest
-		if err := c.BindJSON(&loginRequest); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
+	router.POST("/v1/login", controller.LoginUser)
 
-		validate := validator.New()
-		if err := validate.Struct(loginRequest); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
-
-		if loginRequest.Username != viper.GetString("JWT_AUTH_USERNAME") ||
-			loginRequest.Password != viper.GetString("JWT_AUTH_PASSWORD") {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
-			return
-		}
-
-		token, err := controller.CreateToken(viper.GetString("JWT_SECRET"), viper.GetString("JWT_AUTH_USERNAME"))
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-
-		c.JSON(http.StatusOK, gin.H{"token": token})
-	})
-
-	api := router.Group("/v1")
+	api := router.Group("/v1", middleware.AuthMiddleware())
 	{
 		// Book routes
 		api.GET("/books", controller.GetAllBooks)
@@ -65,7 +38,6 @@ func SetupRoutes(router *gin.Engine) {
 		api.POST("/books", controller.CreateBook)
 		api.PUT("/books/:id", controller.UpdateBook)
 		api.DELETE("/books/:id", controller.DeleteBook)
-
 	}
 
 	// Run the server
